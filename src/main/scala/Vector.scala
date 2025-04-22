@@ -6,13 +6,19 @@ class Vector(val data: List[Double]) {
 
   def magnitude: Double = L2Norm
 
-  @targetName("add")
+  @targetName("v_add")
   def +(other: Vector): Vector = {
     if size != other.size then throw new UnsupportedOperationException("Vectors must be the same size") else
     new Vector(data.zip(other.data).map { case (a, b) => a + b })
   }
 
-  @targetName("scale")
+  @targetName("v_subtract")
+  def -(other: Vector): Vector = {
+    if size != other.size then throw new UnsupportedOperationException("Vectors must be the same size") else
+      new Vector(data.zip(other.data).map { case (a, b) => a - b })
+  }
+
+  @targetName("v_scale")
   def *(scalar: Double): Vector = {
     new Vector(data.map(x => x * scalar))
   }
