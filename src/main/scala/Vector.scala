@@ -34,4 +34,6 @@ class Vector(val data: List[Double]) {
   }
 
   override def toString: String = data.mkString("<", ", ", ">")
+
+  def toList: List[Double] = data
 }
