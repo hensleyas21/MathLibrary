@@ -32,4 +32,6 @@ class Vector(val data: List[Double]) {
   def crossProduct(otherVectors: List[Vector]): Vector = {
     new Vector([0])
   }
+
+  override def toString: String = data.mkString("<", ", ", ">")
 }
