@@ -4,7 +4,7 @@ class Matrix(val n: Int, val m: Int, val data: List[List[Double]]) {
 
   def size: (Int, Int) = (n, m)
 
-  def this(vectorList: List[Vector]) = this(vectorList.length, vectorList.head.size, vectorList.map(v => v.toList))
+  def this(vectorList: List[MyVector]) = this(vectorList.length, vectorList.head.size, vectorList.map(v => v.toList))
 
   def isSquare: Boolean = n == m
 
@@ -13,14 +13,14 @@ class Matrix(val n: Int, val m: Int, val data: List[List[Double]]) {
     data(n)(m)
   }
 
-  def getRow(i: Int): Vector = {
+  def getRow(i: Int): MyVector = {
     if i < 0 || i >= n then throw new IndexOutOfBoundsException("Invalid row index for matrix") else
-    new Vector(data(i))
+    new MyVector(data(i))
   }
 
-  def getColumn(i: Int): Vector = {
+  def getColumn(i: Int): MyVector = {
     if i < 0 || i >= m then throw new IndexOutOfBoundsException("Invalid row index for matrix") else
-    new Vector(data.map(row => row(i)))
+    new MyVector(data.map(row => row(i)))
   }
 
   def transpose: Matrix = new Matrix(m, n, data.transpose)
