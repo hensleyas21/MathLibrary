@@ -48,5 +48,12 @@ class Matrix(val n: Int, val m: Int, val data: List[List[Double]]) {
     new Matrix(n, other.m, (for x <- 0 until n yield (for y <- 0 until other.m yield getRow(x).dotProduct(other.getColumn(y))).toList).toList)
   }
 
+  def getSubMatrix(n: Int, m: Int): Matrix = {
+    if n < 0 || m < 0 || n >= this.n || m >= this.m then throw new IndexOutOfBoundsException("Invalid indices for matrix") else
+    new Matrix(this.n-1, this.m-1, (for row <- 0 until this.n if row != n yield (for col <- 0 until this.m if col != m yield data(row)(col)).toList).toList)
+  }
+
+  def toSquareMatrix: SquareMatrix = if !isSquare then throw new UnsupportedOperationException("The matrix is not a square") else new SquareMatrix(n, data)
+
   override def toString: String = (for row <- data yield row.mkString("| ", "  ", " |\n")).mkString
 }
