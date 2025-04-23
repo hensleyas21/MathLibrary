@@ -34,9 +34,9 @@ class Vector(val data: List[Double]) {
     data.zip(other.data).map { case (a, b) => a * b }.sum
   }
 
-  @TODO
+  // TODO: finish this
   def crossProduct(otherVectors: List[Vector]): Vector = {
-    new Vector([0])
+    new Vector(List(0))
   }
 
   override def toString: String = data.mkString("<", ", ", ">")

@@ -45,6 +45,8 @@ class Matrix(val n: Int, val m: Int, val data: List[List[Double]]) {
   @targetName("m_product")
   def *(other: Matrix): Matrix = {
     if m != other.n then throw new UnsupportedOperationException("The matrices' dimensions do not match") else
-    new Matrix(n, other.m, for x <- 0 until n yield for y <- 0 until other.m yield getRow(x).dotProduct(other.getColumn(y)))
+    new Matrix(n, other.m, (for x <- 0 until n yield (for y <- 0 until other.m yield getRow(x).dotProduct(other.getColumn(y))).toList).toList)
   }
+
+  override def toString: String = (for row <- data yield row.mkString("| ", "  ", " |\n")).mkString
 }
