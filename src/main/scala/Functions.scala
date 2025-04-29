@@ -1,0 +1,17 @@
+def LeftRiemannSum(f: Double => Double, a:Double, b:Double, n:Int): Double = {
+  val deltaX = (b - a)/n
+  val sum = (0 until n).map(i => f(a + i*deltaX)).sum
+  sum * deltaX
+}
+
+def RightRiemannSum(f: Double => Double, a:Double, b:Double, n:Int): Double = {
+  val deltaX = (b - a)/n
+  val sum = (0 until n).map(i => f(a + (i+1)*deltaX)).sum
+  sum * deltaX
+}
+
+def MiddleRiemannSum(f: Double => Double, a:Double, b:Double, n:Int): Double = {
+  val deltaX = (b - a)/n
+  val sum = (0 until n).map(i => f(a + (i+0.5)*deltaX)).sum
+  sum * deltaX
+}
