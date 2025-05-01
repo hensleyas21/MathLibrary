@@ -15,10 +15,13 @@ def timeIt[A](f: => A): (Double, A) = {
 }
 
 def timeMonteCarlo() : Unit = {
-    timePi()
+        timePi()
+        timeE()
+    timeFlips()
 }
 
 def timePi() : Unit = {
+    print("============\nTiming Pi\n============\n")
     var result = timeIt(MonteCarloEstimator.estPi(1000000))
     print(s"Estimating pi not in parallel took [${result._1} ms] for 1 million trials ")
     println(s"Pi is ${result._2}")
@@ -27,21 +30,76 @@ def timePi() : Unit = {
     print(s"Estimating pi in parallel took [${result._1} ms] for 1 million trials ")
     println(s"Pi is ${result._2}")
 
-    result = timeIt(MonteCarloEstimator.estPi(50000000))
-    print(s"Estimating pi not in parallel took [${result._1} ms] for 50 million trials ")
-    println(s"Pi is ${result._2}")
-
-    result = timeIt(MonteCarloEstimator.parEstPi(50000000))
-    print(s"Estimating pi in parallel took [${result._1} ms] for 50 million trials ")
-    println(s"Pi is ${result._2}")
-
     result = timeIt(MonteCarloEstimator.estPi(100000000))
-    print(s"Estimating pi not in parallel took [${result._1} ms] for 100 million trials ")
+    print(s"\nEstimating pi not in parallel took [${result._1} ms] for 100 million trials ")
     println(s"Pi is ${result._2}")
 
     result = timeIt(MonteCarloEstimator.parEstPi(100000000))
     print(s"Estimating pi in parallel took [${result._1} ms] for 100 million trials ")
     println(s"Pi is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.estPi(500000000))
+    print(s"\nEstimating pi not in parallel took [${result._1} ms] for 500 million trials ")
+    println(s"Pi is ${result._2}")
+
+    //    result = timeIt(MonteCarloEstimator.parEstPi(500000000))
+    print(s"Estimating pi in parallel took [infinite ms] for 500 million trials ")
+    println("We ran out of heap memory")
+}
+
+
+def timeFlips(): Unit = {
+    print("============\nTiming Flips\n============\n")
+    var result = timeIt(MonteCarloEstimator.estimateNHeadsProbInMFlips(500000, 100, 5))
+    print(s"\nEstimating flips with 100 flips to get 5 heads in a row not in parallel took [${result._1} ms] for 500 thousand trials ")
+    println(s"Prob is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.parEstimateNHeadsProbInMFlips(500000, 100, 5))
+    print(s"Estimating flips with 100 flips to get 10 heads in a row not in parallel took [${result._1} ms] for 500 thousand trials ")
+    println(s"Prob is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.estimateNHeadsProbInMFlips(1000000, 100, 10))
+    print(s"\nEstimating flips with 100 flips to get 10 heads in a row not in parallel took [${result._1} ms] for 1 million trials ")
+    println(s"Prob is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.parEstimateNHeadsProbInMFlips(1000000, 100, 10))
+    print(s"Estimating flips with 100 flips to get 10 heads in a row not in parallel took [${result._1} ms] for 1 million trials ")
+    println(s"Prob is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.estimateNHeadsProbInMFlips(100000000, 150, 25))
+    print(s"\nEstimating flips with 150 flips to get 25 heads in a row not in parallel took [${result._1} ms] for 100 million trials ")
+    println(s"Prob is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.parEstimateNHeadsProbInMFlips(  100000000, 150, 25))
+    print(s"Estimating flips with 150 flips to get 25 heads in a row not in parallel took [${result._1} ms] for 100 million trials ")
+    println(s"Prob is ${result._2}")
+}
+
+def timeE() : Unit = {
+    print("\n\n============\nTiming E\n============\n")
+    var result = timeIt(MonteCarloEstimator.estE(1000000))
+    print(s"Estimating e not in parallel took [${result._1} ms] for 1 million trials ")
+    println(s"Pi is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.parEstE(1000000))
+    print(s"Estimating e in parallel took [${result._1} ms] for 1 million trials ")
+    println(s"Pi is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.estE(100000000))
+    print(s"\nEstimating e not in parallel took [${result._1} ms] for 100 million trials ")
+    println(s"Pi is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.parEstE(100000000))
+    print(s"Estimating e in parallel took [${result._1} ms] for 100 million trials ")
+    println(s"Pi is ${result._2}")
+
+    result = timeIt(MonteCarloEstimator.estE(500000000))
+    print(s"\nEstimating e not in parallel took [${result._1} ms] for 500 million trials ")
+    println(s"Pi is ${result._2}")
+
+    //    result = timeIt(MonteCarloEstimator.parEstE(500000000))
+    print(s"Estimating e in parallel took [infinite ms] for 500 million trials ")
+    println("We ran out of memory")
 }
 
 def timeRiemannSum(): Unit ={
