@@ -2,23 +2,14 @@ import scala.annotation.targetName
 import scala.collection.parallel.CollectionConverters._
 
 class SquareMatrix (n: Int, data: List[List[Double]]) extends Matrix (n, n, data) {
-
-  private var hasCalculatedDet: Boolean = false
+  
   private var det: Double = 0.0
 
   def this(vectorList: List[MyVector]) = this(vectorList.size, vectorList.map(v => v.toList))
 
-  def determinant: Double = if hasCalculatedDet then det else {
-    hasCalculatedDet = true
-    det = if n == 1 then data.head.head else (0 until n).map(i => getSubMatrix(0, i).determinant * data.head(i) * (if i%2==0 then 1 else -1)).sum
-    det
-  }
+  def determinant: Double = if n == 1 then data.head.head else (0 until n).map(i => getSubMatrix(0, i).determinant * data.head(i) * (if i%2==0 then 1 else -1)).sum
 
-  def determinantParallel: Double = if hasCalculatedDet then det else {
-    hasCalculatedDet = true
-    det = if n == 1 then data.head.head else (0 until n).par.map(i => getSubMatrix(0, i).determinantParallel * data.head(i) * (if i % 2 == 0 then 1 else -1)).sum
-    det
-  }
+  def determinantParallel: Double = if n == 1 then data.head.head else (0 until n).par.map(i => getSubMatrix(0, i).determinantParallel * data.head(i) * (if i%2==0 then 1 else -1)).sum
 
   def isInvertible: Boolean = determinant != 0
 
