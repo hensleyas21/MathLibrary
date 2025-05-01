@@ -1,10 +1,12 @@
-import scala.collection.immutable.Vector
+import scala.util.Random
 
 @main
 def main(): Unit = {
-//    timeMonteCarlo()
-//    timeRiemannSum()
-timeMarkovChain()
+    // comment these out as needed
+    timeMonteCarlo()
+    timeRiemannSum()
+    timeMarkovChain()
+    timeDeterminants()
 }
 
 def timeIt[A](f: => A): (Double, A) = {
@@ -15,8 +17,8 @@ def timeIt[A](f: => A): (Double, A) = {
 }
 
 def timeMonteCarlo() : Unit = {
-        timePi()
-        timeE()
+    timePi()
+    timeE()
     timeFlips()
 }
 
@@ -138,7 +140,6 @@ def timeRiemannSum(): Unit ={
 }
 
 def timeMarkovChain(): Unit = {
-
     val matrix: Matrix = Matrix(5, 5, List(
         List(0.5, 0.1, 0.3, 0.2, 0),
         List(0.25, 0.6, 0.5, 0.7, 0.3),
@@ -167,4 +168,25 @@ def timeMarkovChain(): Unit = {
     println(s"The result was the vector ${seqResult3._2}")
     println(s"The Markov chain for a 5 x 5 matrix, computed in parallel with 10,000,000 iterations took [${parResult3._1} ms]")
     println(s"The result was the vector ${parResult3._2}")
+}
+
+def timeDeterminants(): Unit = {
+    def generateRandomSquareMatrix(n: Int, min: Double = -10.0, max: Double = 10.0): SquareMatrix = {
+        val random = new Random
+        val data = (0 until n).map { _ =>
+            (0 until n).map { _ =>
+                min + (max - min) * random.nextDouble()
+            }.toList
+        }.toList
+        new SquareMatrix(n, data)
+    }
+
+    for n <- 1 to 11 do {
+        val m = generateRandomSquareMatrix(n)
+        val result = timeIt(m.determinant)
+        val resultPar = timeIt(m.determinantParallel)
+        println(s"Det of ${n}x${n} matrix took [${result._1} ms]")
+        println(s"Par det of ${n}x${n} matrix took [${resultPar._1} ms]\n")
+    }
+
 }
