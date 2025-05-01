@@ -1,3 +1,4 @@
-[debug] not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/C:/Users/FOERSTAT21/OneDrive%20-%20Grove%20City%20College/Semester%208/Parallel/Work/Code/Projects/MathLibrary/"), "root")...
-[debug] Done updating ProjectRef(uri("file:/C:/Users/FOERSTAT21/OneDrive%20-%20Grove%20City%20College/Semester%208/Parallel/Work/Code/Projects/MathLibrary/"), "root")
+[warn] scala3-library_3-3.3.5-sources.jar no longer exists at C:\Users\FOERSTAT21\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.5\scala3-library_3-3.3.5-sources.jar
+[debug] not up to date. inChanged = false, force = false
+[debug] Updating ProjectRef(uri("file:/C:/Users/HENSLEYAS21/OneDrive%20-%20Grove%20City%20College/Desktop/COMP424/Projects/MathLibrary/"), "root")...
+[debug] Done updating ProjectRef(uri("file:/C:/Users/HENSLEYAS21/OneDrive%20-%20Grove%20City%20College/Desktop/COMP424/Projects/MathLibrary/"), "root")
