@@ -2,8 +2,9 @@ import scala.collection.immutable.Vector
 
 @main
 def main(): Unit = {
-    timeMonteCarlo()
-    timeRiemannSum()
+//    timeMonteCarlo()
+//    timeRiemannSum()
+timeMarkovChain()
 }
 
 def timeIt[A](f: => A): (Double, A) = {
@@ -76,4 +77,36 @@ def timeRiemannSum(): Unit ={
     println(s"The middle Riemann Sum is ${mrsp}")
 
 
+}
+
+def timeMarkovChain(): Unit = {
+
+    val matrix: Matrix = Matrix(5, 5, List(
+        List(0.5, 0.1, 0.3, 0.2, 0),
+        List(0.25, 0.6, 0.5, 0.7, 0.3),
+        List(0.15, 0.2, 0.2, 0.1, 0.5),
+        List(0.1, 0.0, 0.0, 0.0, 0.1),
+        List(0.0, 0.1, 0.0, 0.0, 0.1)))
+    val vector: MyVector = MyVector(List(0.2, 0.3, 0.1, 0.1, 0.3))
+
+    val seqResult1 = timeIt(MarkovChain(vector, matrix, 1000000))
+    val parResult1 = timeIt(ParMarkovChain(vector, matrix, 1000000))
+    println(s"The Markov chain for a 5 x 5 matrix, computed sequentially with 1,000,000 iterations took [${seqResult1._1} ms]")
+    println(s"The result was the vector ${seqResult1._2}")
+    println(s"The Markov chain for a 5 x 5 matrix, computed in parallel with 1,000,000 iterations took [${parResult1._1} ms]")
+    println(s"The result was the vector ${parResult1._2}")
+
+    val seqResult2 = timeIt(MarkovChain(vector, matrix, 10000000))
+    val parResult2 = timeIt(ParMarkovChain(vector, matrix, 10000000))
+    println(s"The Markov chain for a 5 x 5 matrix, computed sequentially with 5,000,000 iterations took [${seqResult2._1} ms]")
+    println(s"The result was the vector ${seqResult2._2}")
+    println(s"The Markov chain for a 5 x 5 matrix, computed in parallel with 5,000,000 iterations took [${parResult2._1} ms]")
+    println(s"The result was the vector ${parResult2._2}")
+
+    val seqResult3 = timeIt(MarkovChain(vector, matrix, 50000000))
+    val parResult3 = timeIt(ParMarkovChain(vector, matrix, 50000000))
+    println(s"The Markov chain for a 5 x 5 matrix, computed sequentially with 10,000,000 iterations took [${seqResult3._1} ms]")
+    println(s"The result was the vector ${seqResult3._2}")
+    println(s"The Markov chain for a 5 x 5 matrix, computed in parallel with 10,000,000 iterations took [${parResult3._1} ms]")
+    println(s"The result was the vector ${parResult3._2}")
 }

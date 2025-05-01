@@ -9,11 +9,11 @@ class MarkovChainSpec extends AnyFlatSpec with Matchers {
     print("\n")
     val vectorA: MyVector = MyVector(List(0.3, 0.2, 0.5))
     val vectorB: MyVector = MyVector(List(0.5086, 0.372463, 0.118938))
-    print(vectorA)
-    print("\n")
-    print(vectorB)
-    print("\n")
-    val listA: List[Double] = MarkovChain(vectorA, matrixA, 3).toList
+    println(vectorA)
+    println(vectorB)
+    val resultVector: MyVector = MarkovChain(vectorA, matrixA, 10)
+    println(resultVector)
+    val listA: List[Double] = resultVector.data
     val listB: List[Double] = vectorB.data
     val vectorsAreEqual: List[Boolean] = (for pair <- listA.zip(listB) yield if pair._1 - pair._2 > 0.0001 then false else true)
     !vectorsAreEqual.contains(false)
