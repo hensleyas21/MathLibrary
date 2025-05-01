@@ -42,7 +42,8 @@ def MiddleRiemannSumParallel(f: Double => Double, a:Double, b:Double, n:Int): Do
  * @return - vector: MyVector
  */
 def MarkovChain(vector: MyVector, matrix: Matrix, n: Int): MyVector = {
-  // need to parallelize the multiplication of matrices (they can be multiplied in any order (kinda))
-  // before multiplying the vector by it
-  vector
+  val matrixChain: List[Matrix] = List.fill(n)(matrix) // fill() from StackOverflow
+  val finalMatrix: Matrix = matrixChain.par.reduce((matrixA, matrixB) => matrixA * matrixB)
+  val vectorAsMatrix: Matrix = Matrix(vector.size, 1, List(vector.data))
+  (finalMatrix * vectorAsMatrix).getColumn(0)
 }
