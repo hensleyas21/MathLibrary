@@ -41,11 +41,13 @@ def middleRiemannSumParallel(f: Double => Double, a:Double, b:Double, n:Int): Do
  * @param vector - the vector to start with
  * @param matrix - the stochastic matrix
  * @param n - the number of times to multiply the vector by the matrix
- * @return - vector: MyVector
+ * @return - MyVector: the resulting vector
  */
 def MarkovChain(vector: MyVector, matrix: Matrix, n: Int): MyVector = {
+  val newMatrix: SquareMatrix = SquareMatrix(matrix.n, matrix.data) // will throw an exception if cannot be made into a square matrix
   val matrixChain: List[Matrix] = List.fill(n)(matrix) // fill() from StackOverflow
   val finalMatrix: Matrix = matrixChain.par.reduce((matrixA, matrixB) => matrixA * matrixB)
-  val vectorAsMatrix: Matrix = Matrix(vector.size, 1, List(vector.data))
+  val vectorAsMatrix: Matrix = Matrix(1, vector.size, List(vector.data)).transpose
+  print(vectorAsMatrix)
   (finalMatrix * vectorAsMatrix).getColumn(0)
 }

@@ -42,7 +42,7 @@ class MyVector(val data: List[Double]) {
     new MyVector((0 until size).map(i => matrix.getSubMatrix(0, i).determinant * (if i%2==0 then 1 else -1)).toList)
   }
 
-  override def toString: String = data.mkString("<", ", ", ">")
+  override def toString: String = data.mkString("<", ", ", ">\n")
 
   def toList: List[Double] = data
 }
