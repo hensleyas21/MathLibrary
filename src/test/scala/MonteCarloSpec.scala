@@ -1,7 +1,7 @@
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class GetDiceRollSpec extends AnyFlatSpec  with Matchers {
+class MonteCarloSpec extends AnyFlatSpec  with Matchers {
   "estimatingPi" should "return a value close to pi" in {
     MonteCarloEstimator.estPi(1000000) should equal (3.14 +- .1)
     MonteCarloEstimator.parEstPi(1000000) should equal (3.14 +- .1)
@@ -16,6 +16,11 @@ class GetDiceRollSpec extends AnyFlatSpec  with Matchers {
     MonteCarloEstimator.estimateNHeadsProbInMFlips(100000000, 1, 1) should equal(.5 +- .01)
     MonteCarloEstimator.estimateNHeadsProbInMFlips(100000000, 2, 2) should equal(.25 +- .01)
     MonteCarloEstimator.estimateNHeadsProbInMFlips(100000000, 2, 3) should equal(0)
+
+
+    MonteCarloEstimator.parEstimateNHeadsProbInMFlips(100000000, 1, 1) should equal(.5 +- .01)
+    MonteCarloEstimator.parEstimateNHeadsProbInMFlips(100000000, 2, 2) should equal(.25 +- .01)
+    MonteCarloEstimator.parEstimateNHeadsProbInMFlips(100000000, 2, 3) should equal(0)
   }
 
 }
